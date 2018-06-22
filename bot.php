@@ -16,8 +16,7 @@ $message 	= $client->parseEvents()[0]['message'];
 $messageid 	= $client->parseEvents()[0]['message']['id'];
 $profil = $client->profil($userId);
 $pesan_datang = explode(" ", $message['text']);
-$pesan_simi = explode("Sally ", $message['text']);
-$query_simi = $pesan_simi[1];
+$pesan_simi = $message['text'];
 $msg_type = $message['type'];
 $command = $pesan_datang[0];
 $options = $pesan_datang[1];
@@ -34,6 +33,15 @@ function simi($keyword) {
     $json = json_decode($response->raw_body, true);
     $result = $json["answer"];
     return $result;
+}
+function say($keyword) { 
+    $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=" . $keyword . "&tanggal=10-05-2003"; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+ $result .= $json['data']['nama']; 
+    return $result; 
 }
 function insta($keyword) {
     $uri = "https://ari-api.herokuapp.com/instagram?username=" . $keyword;
@@ -694,14 +702,14 @@ if($message['type']=='text') {
 if($message['type']== 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == 'apakah') {
+    if($filter[0] == '%apakah') {
         $balas = send(jawabs(), $replyToken);
     }
 }
 // fitur instagram
 if($message['type']=='text') {
 	    if ($command == '%instagram') {
-        $result = waktu($options);
+        $result = insta($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
@@ -727,7 +735,7 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => $parsed
+                    'text' => $result
                 )
             )
         );
@@ -871,8 +879,8 @@ elseif($message['type']=='sticker'){
 						
 }
 else{
-($message['type']=='text');
-     $result = simi($query_simi);
+($message['type']=='text');$pesan=
+     $result = simi(str_replace("sally", "%20", $pesan_simi));
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
