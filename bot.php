@@ -64,7 +64,7 @@ function insta($keyword) {
     $result .= $json['result']['is_private'];
     $result .= "\nFollower: ";
     $result .= $json['result']['byline'];
-    $result .= '\n\nhttps://www.instagram.com/'. $keyword;
+    $result .= "\n\n https://www.instagram.com/" . $keyword;
     return $result;
 }
 
