@@ -16,6 +16,8 @@ $message 	= $client->parseEvents()[0]['message'];
 $messageid 	= $client->parseEvents()[0]['message']['id'];
 $profil = $client->profil($userId);
 $pesan_datang = explode(" ", $message['text']);
+$pesan_simi = explode("Sally ", $message['text']);
+$query_simi = $pesan_simi[1];
 $msg_type = $message['type'];
 $command = $pesan_datang[0];
 $options = $pesan_datang[1];
@@ -27,10 +29,11 @@ if (count($pesan_datang) > 2) {
 }
 #-------------------------[Function]-------------------------#
 function simi($keyword) {
-    $uri = "https://corrykalam.gq/chatbot.php?text=" . $keyword;
+    $uri = "https://corrykalam.gq/simi.php?text=" . $keyword;
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-    $result = $json["answer"];
+    if $json["answer"] != "Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku";
+       $result = $json["answer"];
     return $result;
 }
 function insta($keyword) {
@@ -794,7 +797,7 @@ URL: '. $result['link']
     }
 }
 // fitur instagram
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '%instagram') {
         $result = waktu($options);
         $balas = array(
@@ -814,7 +817,7 @@ if($message['type']=='text') {
     }
 }
 //fitur youtube
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '%youtube') {
         $result = youtubelist($options);
         $balas = array(
@@ -828,8 +831,8 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
-	    if ($command == '/anime' || $command == '/Anime') {
+elseif($message['type']=='text') {
+	    if ($command == '%anime') {
         $result = anime($options);
         $altText = "Title : " . $result['title'];
         $altText .= "\n\n" . $result['desc'];
@@ -864,7 +867,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/manga') {
         $result = manga($options);
         $altText = "Title : " . $result['title'];
@@ -900,8 +903,8 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
-	    if ($command == '/time') {
+elseif($message['type']=='text') {
+	    if ($command == '%time') {
         $result = waktu($options);
         $balas = array(
             'replyToken' => $replyToken,
@@ -914,8 +917,9 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
-	    if ($command == '/say') {
+//fitur kata 
+elseif($message['type']=='text') {
+	    if ($command == '%say') {
         $result = say($options);
         $balas = array(
             'replyToken' => $replyToken,
@@ -928,9 +932,9 @@ if($message['type']=='text') {
         );
     }
 }
-
-if($message['type']=='text') {
-	    if ($command == '/qiblat') {
+//fitur gambar kiblat
+elseif($message['type']=='text') {
+	    if ($command == '%qiblat') {
         $hasil = qibla($options);
         $balas = array(
             'replyToken' => $replyToken,
@@ -944,7 +948,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/joox') {
         $result = musiknya($options);
         $balas = array(
@@ -958,7 +962,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/gambar') {
         $result = gambarnya($options);
         $balas = array(
@@ -973,7 +977,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/fansign') {
         $result = fansign($options);
         $balas = array(
@@ -988,7 +992,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/jadwaltv') {
         $result = jadwaltv($options);
         $balas = array(
@@ -1002,7 +1006,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/shalat') {
         $result = shalat($options);
         $balas = array(
@@ -1016,7 +1020,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
+elseif($message['type']=='text') {
 	    if ($command == '/cuaca') {
         $result = cuaca($options);
         $balas = array(
@@ -1030,7 +1034,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='sticker'){	
+elseif($message['type']=='sticker'){	
 	$result = stickerlist($options);
 	$balas = array(
 		'replyToken' => $replyToken,														
@@ -1045,8 +1049,18 @@ if($message['type']=='sticker'){
 						);
 						
 }
-
-
+else($message['type']=='text'){
+     $result = simi($query_simi);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
 if (isset($balas)) {
     $result = json_encode($balas);
 //$result = ob_get_clean();
