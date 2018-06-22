@@ -16,7 +16,8 @@ $message 	= $client->parseEvents()[0]['message'];
 $messageid 	= $client->parseEvents()[0]['message']['id'];
 $profil = $client->profil($userId);
 $pesan_datang = explode(" ", $message['text']);
-$pesan_simi = $message['text'];
+$pesan_simi = explode("Sally ", $message['text']);
+$siminya = $pesan_simi[1];
 $msg_type = $message['type'];
 $command = $pesan_datang[0];
 $options = $pesan_datang[1];
@@ -68,33 +69,33 @@ function youtubelist($keyword) {
     $parsed = "YOUTUBE LIST\n\n";
     $parsed .= "ID: ";
     $parsed .= $json['result'][0]['id'];
-    $parsed .= "TITLE\n";
+    $parsed .= "\nTITLE\n";
     $parsed .= $json['result'][0]['title'];
-    $parsed .= "URL\n";
+    $parsed .= "\nURL\n";
     $parsed .= $json['result'][0]['link'];
-    $parsed .= "ID: ";
+    $parsed .= "\n\nID: ";
     $parsed .= $json['result'][1]['id'];
-    $parsed .= "TITLE\n";
+    $parsed .= "\nTITLE\n";
     $parsed .= $json['result'][1]['title'];
-    $parsed .= "URL\n";
+    $parsed .= "\nURL\n";
     $parsed .= $json['result'][1]['link'];
-    $parsed .= "ID: ";
+    $parsed .= "\n\nID: ";
     $parsed .= $json['result'][2]['id'];
-    $parsed .= "TITLE\n";
+    $parsed .= "\nTITLE\n";
     $parsed .= $json['result'][2]['title'];
-    $parsed .= "URL\n";
+    $parsed .= "\nURL\n";
     $parsed .= $json['result'][2]['link'];
-    $parsed .= "ID: ";
+    $parsed .= "\n\nID: ";
     $parsed .= $json['result'][3]['id'];
-    $parsed .= "TITLE\n";
+    $parsed .= "\nTITLE\n";
     $parsed .= $json['result'][3]['title'];
-    $parsed .= "URL\n";
+    $parsed .= "\nURL\n";
     $parsed .= $json['result'][3]['link'];
-    $parsed .= "ID: ";
+    $parsed .= "\n\nID: ";
     $parsed .= $json['result'][4]['id'];
-    $parsed .= "TITLE\n";
+    $parsed .= "\nTITLE\n";
     $parsed .= $json['result'][4]['title'];
-    $parsed .= "URL\n";
+    $parsed .= "\nURL\n";
     $parsed .= $json['result'][4]['link'];
     return $parsed;
 }
@@ -796,8 +797,8 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                   'type' => 'image',
-                  'originalContentUrl' => $jawab,
-                  'previewImageUrl' => $jawab
+                  'originalContentUrl' => $result,
+                  'previewImageUrl' => $result
                 )
             )
         );
@@ -811,8 +812,8 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                   'type' => 'image',
-                  'originalContentUrl' => $uri,
-                  'previewImageUrl' => $uri
+                  'originalContentUrl' => $result,
+                  'previewImageUrl' => $result
                 )
             )
         );
@@ -879,8 +880,8 @@ elseif($message['type']=='sticker'){
 						
 }
 else{
-($message['type']=='text');$pesan=
-     $result = simi(str_replace("sally", "%20", $pesan_simi));
+($message['type']=='text');
+     $result = simi($siminya));
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
