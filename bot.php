@@ -851,7 +851,7 @@ if($message['type']=='text') {
 }
 if($message['type']=='text'){
   if ($command == 'sally' || 'Sally') {
-     $result = simi($siminya);
+     $result = simi($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
