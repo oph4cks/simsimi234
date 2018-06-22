@@ -865,7 +865,8 @@ if($message['type']=='text') {
         );
     }
 }
-else($message['type']=='text') {
+else{
+if($message['type']=='text') {
 	    if ($command == 'Sally') {
         $result = simi($options);
         $balas = array(
@@ -878,6 +879,7 @@ else($message['type']=='text') {
             )
         );
     }
+}
 }
 elseif($message['type']=='sticker'){	
 	$result = stickerlist($options);
