@@ -879,7 +879,8 @@ elseif($message['type']=='sticker'){
 						);
 						
 }
-elseif($message['type']=='text'){
+if($message['type']=='text'){
+  if ($command == 'sally' || 'Sally') {
      $result = simi($siminya);
         $balas = array(
             'replyToken' => $replyToken,
