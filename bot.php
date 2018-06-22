@@ -33,15 +33,21 @@ function simi($keyword) {
     $result = $json["answer"];
     return $result;
 }
-function twitter($keyword) {
-    $uri = "https://farzain.xyz/api/twitter.php?apikey=9YzAAXsDGYHWFRf6gWzdG5EQECW7oo&id=";
+function insta($keyword) {
+    $uri = "https://ari-api.herokuapp.com/instagram?username=" . $keyword;
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-    $result = "「Twitter Result」\n\n";
+    $potonya = $json['result']['profile_pic_url'];
+    $result = "「PROFILE INSTAGRAM」\n\n";
     $result .= "DisplayName: ";
-    $result .= $json[0]['user']['name'];
+    $result .= $json['result']['full_name'];
     $result .= "UserName: ";
-    $result .= $json[0]['user']['screen_name'];
+    $result .= $json['result']['username'];
+    $result .= "Private: ";
+    $result .= $json['result']['is_private'];
+    $result .= "Follower: ";
+    $result .= $json['result']['byline'];
+    $result .= 'https://www.instagram.com/'. $keyword;
     return $result;
 }
 function instainfo($keyword) {
@@ -57,6 +63,43 @@ function instainfo($keyword) {
     $parsed['bio']       = $json['info']['bio'];
     $parsed['bawah']     = 'https://www.instagram.com/'. $keyword;
     
+    return $parsed;
+}
+function youtubelist($keyword) {
+    $uri = "https://ari-api.herokuapp.com/youtube/search?q=" . $keyword;
+    $response = Unirest\Request::get("$uri");
+    $json = json_decode($response->raw_body, true);
+    $parsed = "YOUTUBE LIST\n\n"
+    $parsed .= "ID: "
+    $parsed .= $json['result'][0]['id'];
+    $parsed .= "TITLE\n"
+    $parsed .= $json['result'][0]['title'];
+    $parsed .= "URL\n"
+    $parsed .= $json['result'][0]['link'];
+    $parsed .= "ID: "
+    $parsed .= $json['result'][1]['id'];
+    $parsed .= "TITLE\n"
+    $parsed .= $json['result'][1]['title'];
+    $parsed .= "URL\n"
+    $parsed .= $json['result'][1]['link'];
+    $parsed .= "ID: "
+    $parsed .= $json['result'][2]['id'];
+    $parsed .= "TITLE\n"
+    $parsed .= $json['result'][2]['title'];
+    $parsed .= "URL\n"
+    $parsed .= $json['result'][2]['link'];
+    $parsed .= "ID: "
+    $parsed .= $json['result'][3]['id'];
+    $parsed .= "TITLE\n"
+    $parsed .= $json['result'][3]['title'];
+    $parsed .= "URL\n"
+    $parsed .= $json['result'][3]['link'];
+    $parsed .= "ID: "
+    $parsed .= $json['result'][4]['id'];
+    $parsed .= "TITLE\n"
+    $parsed .= $json['result'][4]['title'];
+    $parsed .= "URL\n"
+    $parsed .= $json['result'][4]['link'];
     return $parsed;
 }
 function textspech($keyword) {
@@ -453,8 +496,7 @@ function jawabs(){
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 if ($type == 'join') {
-    $text = "Makasih dh invite aku ke grup kak!! Ketik /menu untuk melihat fitur yang aq punya\n\n";
-    $text .= "untuk menggunakan fitur secara maksimal add aq dulu y kak :)\n";
+    $text = "thanks!! type /menu\n\n";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -480,9 +522,9 @@ if ($command == '/menu') {
     array (
         0 =>
       array (
-        'thumbnailImageUrl' => 'https://pedestalsearch.com/wp-content/uploads/2016/04/video-seo-youtube-logo.png',
+        'thumbnailImageUrl' => 'https://4.bp.blogspot.com/-L3sjf-JDwVQ/WUEKWMUiDqI/AAAAAAAAoYs/OzuQmmiSm-gdHZrpntvtM31asc3UAVp6wCLcBGAs/s1600/instagram-icon.jpg',
         'imageBackgroundColor' => '#00FFFF',
-        'title' => 'YOUTUBE',
+        'title' => 'INSTAGRAM',
         'text' => 'Temukan Vidio Kesukaanmu',
         'defaultAction' =>
         array (
@@ -495,8 +537,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /youtube <judul vidio>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %instagram <query>',
           ),
         ),
       ),
@@ -540,16 +582,16 @@ if ($command == '/menu') {
           array (
             'type' => 'message',
             'label' => 'Show me',
-            'text' => 'Ketik /soundcloud <judul lagu>',
+            'text' => 'type %soundcloud <query>',
           ),
         ),
       ),
       3 =>
       array (
-        'thumbnailImageUrl' => 'https://1c7qp243xy9g1qeffp1k1nvo-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/instagram_logo.jpg',
+        'thumbnailImageUrl' => 'https://is3-ssl.mzstatic.com/image/thumb/Purple125/v4/52/7c/7b/527c7b92-772c-c9f3-8202-a90d7bddc802/source/512x512bb.jpg',
         'imageBackgroundColor' => '#00FFFF',
-        'title' => 'INSTAGRAM',
-        'text' => 'Menemukan Informasi Akun Instagram Berdasarkan Keyword',
+        'title' => 'SMULE',
+        'text' => 'Finding Smule Account Information Based on Keyword',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -561,8 +603,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /instagram <username>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %smule <url>',
           ),
         ),
       ),
@@ -571,7 +613,7 @@ if ($command == '/menu') {
         'thumbnailImageUrl' => 'https://unnecessaryexclamationmark.files.wordpress.com/2016/05/myanimelist-logo.jpg',
         'imageBackgroundColor' => '#00FFFF',
         'title' => 'ANIME SEARCH',
-        'text' => 'Mencari Informasi Anime Berdasarkan Keyword',
+        'text' => 'Finding Anime Information Based on keywords',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -584,7 +626,7 @@ if ($command == '/menu') {
           array (
             'type' => 'message',
             'label' => 'Show me',
-            'text' => 'Ketik /anime <judul anime>',
+            'text' => 'type %anime <query>',
           ),
         ),
       ),
@@ -593,7 +635,7 @@ if ($command == '/menu') {
         'thumbnailImageUrl' => 'https://is3-ssl.mzstatic.com/image/thumb/Purple62/v4/cc/68/6c/cc686c29-ffd2-5115-2b97-c4821b548fe3/AppIcon-1x_U007emarketing-85-220-6.png/246x0w.jpg',
         'imageBackgroundColor' => '#00FFFF',
         'title' => 'PRAYTIME',
-        'text' => 'Mengetahui Jadwal Shalat Wilayah Indonesia',
+        'text' => 'Know the Schedule of Prayer around the world',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -605,8 +647,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /shalat <nama kota>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %shalat <query>',
           ),
         ),
       ),
@@ -637,7 +679,7 @@ if ($command == '/menu') {
         'thumbnailImageUrl' => 'https://taisy0.com/wp-content/uploads/2015/07/Google-Maps.png',
         'imageBackgroundColor' => '#00FFFF',
         'title' => 'GOOGLEMAP',
-        'text' => 'Mengetahui Lokasi Dan Koordinat Nama Tempat',
+        'text' => 'Knowing Location And Coordinate Place Name',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -649,8 +691,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /location <nama tempat>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %location <query>',
           ),
         ),
       ),
@@ -671,8 +713,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /jadwaltv <channel tv>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %jadwaltv',
           ),
         ),
       ),
@@ -681,7 +723,7 @@ if ($command == '/menu') {
         'thumbnailImageUrl' => 'https://4vector.com/i/free-vector-cartoon-weather-icon-05-vector_018885_cartoon_weather_icon_05_vector.jpg',
         'imageBackgroundColor' => '#00FFFF',
         'title' => 'WEATHER STATUS',
-        'text' => 'Mengetahui Prakiraan Cuaca Seluruh Dunia',
+        'text' => 'Know the World Weather Forecast',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -693,8 +735,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /cuaca <nama kota>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %cuaca <query>',
           ),
         ),
       ),
@@ -708,7 +750,7 @@ if ($command == '/menu') {
 }
 //fitur googlemap
 if($message['type']=='text') {
-	    if ($command == '/location' || $command == '/Location') {
+	    if ($command == '%location') {
         $result = lokasi($options);
         $balas = array(
             'replyToken' => $replyToken,
@@ -753,41 +795,35 @@ URL: '. $result['link']
 }
 // fitur instagram
 if($message['type']=='text') {
-	    if ($command == '/instagram' || $command == '/Instagram') {
-        $parsed = instainfo($options);
+	    if ($command == '%instagram') {
+        $result = waktu($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
-                array (
-  'type' => 'template',
-  'altText' => 'This is a buttons template',
-  'template' => 
-  array (
-    'type' => 'buttons',
-    'thumbnailImageUrl' => $parsed['poto'],
-    'imageAspectRatio' => 'rectangle',
-    'imageSize' => 'cover',
-    'imageBackgroundColor' => '#FFFFFF',
-    'title' => 'Result1',
-    'text' => 'wrw',
-    'defaultAction' => 
-    array (
-      'type' => 'uri',
-      'label' => 'Youtube',
-      'uri' => 'http://example.com/page/123',
-    ),
-    'actions' => 
-    array (
-      0 => 
-      array (
-        'type' => 'postback',
-        'label' => 'Lihat video',
-        'data' => 'action=buy&itemid=123',
-	'text' => 'Youtube-view'
-      )
-    )
-  )
-)
+		array(
+                  'type' => 'image',
+                  'originalContentUrl' => $potonya,
+                  'previewImageUrl' => $potonya
+                ),
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//fitur youtube
+if($message['type']=='text') {
+	    if ($command == '%youtube') {
+        $result = youtubelist($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $parsed
+                )
             )
         );
     }
@@ -892,20 +928,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
-	    if ($command == '/twitter') {
-        $result = twitter($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-}
+
 if($message['type']=='text') {
 	    if ($command == '/qiblat') {
         $hasil = qibla($options);
