@@ -691,7 +691,7 @@ if($message['type']=='text') {
     //    );
   //  }
 //}
-elseif($message['type']== 'text'){
+if($message['type']== 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
     if($filter[0] == 'apakah') {
@@ -699,7 +699,7 @@ elseif($message['type']== 'text'){
     }
 }
 // fitur instagram
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%instagram') {
         $result = waktu($options);
         $balas = array(
@@ -719,7 +719,7 @@ elseif($message['type']=='text') {
     }
 }
 //fitur youtube
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%youtube') {
         $result = youtubelist($options);
         $balas = array(
@@ -734,7 +734,7 @@ elseif($message['type']=='text') {
     }
 }
 //fitur waktu
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%time') {
         $result = waktu($options);
         $balas = array(
@@ -749,7 +749,7 @@ elseif($message['type']=='text') {
     }
 }
 //fitur kata 
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%say') {
         $result = say($options);
         $balas = array(
@@ -764,7 +764,7 @@ elseif($message['type']=='text') {
     }
 }
 //fitur gambar kiblat
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%qiblat') {
         $hasil = qibla($options);
         $balas = array(
@@ -780,7 +780,7 @@ elseif($message['type']=='text') {
     }
 }
 
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%image') {
         $result = google_image($options);
         $balas = array(
@@ -795,7 +795,7 @@ elseif($message['type']=='text') {
         );
     }
 }
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%imageneon') {
         $result = image_neon($options);
         $balas = array(
@@ -811,7 +811,7 @@ elseif($message['type']=='text') {
     }
 }
 
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%jadwaltv') {
         $result = jadwaltv();
         $balas = array(
@@ -826,7 +826,7 @@ elseif($message['type']=='text') {
     }
 }
 //fitur pray
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%shalat') {
         $result = shalat($options);
         $balas = array(
@@ -841,7 +841,7 @@ elseif($message['type']=='text') {
     }
 }
 //fitur cuaca
-elseif($message['type']=='text') {
+if($message['type']=='text') {
 	    if ($command == '%weather') {
         $result = cuaca($options);
         $balas = array(
