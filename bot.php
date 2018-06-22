@@ -44,11 +44,17 @@ function say($keyword) {
  $result .= $json['data']['nama']; 
     return $result; 
 }
+function instapoto($keyword) {
+    $uri = "https://ari-api.herokuapp.com/instagram?username=" . $keyword;
+    $response = Unirest\Request::get("$uri");
+    $json = json_decode($response->raw_body, true);
+    $result = $json['result']['profile_pic_url'];
+    return $result;
+}
 function insta($keyword) {
     $uri = "https://ari-api.herokuapp.com/instagram?username=" . $keyword;
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-    $result['poto'] = $json['result']['profile_pic_url'];
     $result = "「PROFILE INSTAGRAM」\n\n";
     $result .= "DisplayName: ";
     $result .= $json['result']['full_name'];
@@ -710,14 +716,15 @@ if($message['type']== 'text'){
 // fitur instagram
 if($message['type']=='text') {
 	    if ($command == '%instagram') {
+        $resultnya = instapoto($options);
         $result = insta($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
 		array(
                   'type' => 'image',
-                  'originalContentUrl' => $result['poto'],
-                  'previewImageUrl' => $result['poto']
+                  'originalContentUrl' => $resultnya,
+                  'previewImageUrl' => $resultnya
                 ),
                 array(
                     'type' => 'text',
