@@ -53,21 +53,7 @@ function insta($keyword) {
     $result .= 'https://www.instagram.com/'. $keyword;
     return $result;
 }
-function instainfo($keyword) {
-    $uri = "https://farzain.xyz/api/ig_profile.php?id=";
-    $response = Unirest\Request::get("$uri");
-    $json = json_decode($response->raw_body, true);
-    $parsed['poto']      = $json['info']['profile_pict'];
-    $parsed['nama']      = $json['info']['full_name'];
-    $parsed['username']  = $json['info']['username'];
-    $parsed['followers'] = $json['count']['followers'];
-    $parsed['following'] = $json['count']["following"];
-    $parsed['totalpost'] = $json['count']['post'];
-    $parsed['bio']       = $json['info']['bio'];
-    $parsed['bawah']     = 'https://www.instagram.com/'. $keyword;
-    
-    return $parsed;
-}
+
 function youtubelist($keyword) {
     $uri = "https://ari-api.herokuapp.com/youtube/search?q=" . $keyword;
     $response = Unirest\Request::get("$uri");
@@ -105,64 +91,19 @@ function youtubelist($keyword) {
     $parsed .= $json['result'][4]['link'];
     return $parsed;
 }
-function textspech($keyword) {
-    $uri = "https://farzain.xyz/api/tts.php?apikey=9YzAAXsDGYHWFRf6gWzdG5EQECW7oo&id=" . $keyword;
+
+function google_image($keyword) {
+    $uri = "https://ari-api.herokuapp.com/images?q=" . $keyword;
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-    $result .= $json['result'];
+    $result = $json['result'][0];	
     return $result;
 }
-function ytlist($keyword) {
-    $uri = "https://farzain.xyz/api/premium/yt_search.php?apikey=ag73837ung43838383jdhdhd&id=" . $keyword;
-    $response = Unirest\Request::get("$uri");
-    $json = json_decode($response->raw_body, true);
-    $result['id0'] .= $json['respons'][0]['video_id'];
-    $result['title0'] .= $json['respons'][0]['title'];
-    $result['icon0'] .= $json['respons'][0]['thumbnail'];
-	
-    $result['id1'] .= $json['respons'][1]['video_id'];
-    $result['title1'] .= $json['respons'][1]['title'];
-    $result['icon1'] .= $json['respons'][1]['thumbnail'];
-	
-    $result['id2'] .= $json['respons'][2]['video_id'];
-    $result['title2'] .= $json['respons'][2]['title'];
-    $result['icon2'] .= $json['respons'][2]['thumbnail'];
-    return $result;
+function image_neon($keyword) {
+    $uri = "https://ari-api.herokuapp.com/neon?text=" . $keyword;	
+    return $uri;
 }
-function cloud($keyword) {
-    $uri = "https://farzain.xyz/api/premium/soundcloud.php?apikey=ag73837ung43838383jdhdhd&id=" . $keyword;
-    $response = Unirest\Request::get("$uri");
-    $json = json_decode($response->raw_body, true);
-    
-    $result['id']    .= $json['result'][0]['id'];
-    $result['judul'] .= $json['result'][0]['title'];
-    $result['link']  .= $json['result'][0]['url'];
-    $result['audio'] .= $json['result'][0]['url_download'];
-    $result['icon']  .= $json['result'][0]['img'];
-	
-    return $result;
-}
-function musiknya($keyword) {
-    $uri = "https://farzain.xyz/api/premium/joox.php?apikey=ag73837ung43838383jdhdhd&id=" . $keyword;
-    $response = Unirest\Request::get("$uri");
-    $json = json_decode($response->raw_body, true);
-    $result = "「Music Result」\n";
-    $result .= "\n\nPenyanyinya: ";
-	  $result .= $json['info']['penyanyi'];
-    $result .= "\n\nJudulnya: ";
-    $result .= $json['info']['judul'];
-    $result .= "\n\nAlbum: ";
-    $result .= $json['info']['album'];
-    $result .= "\nMp3: \n";
-    $result .= $json['audio']['mp3'];
-    $result .= "\n\nM4a: \n";
-    $result .= $json['audio']['m4a'];
-    $result .= "\n\nIcon: \n";
-    $result .= $json['gambar'];
-    $result .= "\n\nLirik: \n";
-    $result .= $json['lirik'];
-    return $result;
-}
+
 function stickerlist($keyword) {
     $listnya = array(
 	    "1",
@@ -276,52 +217,90 @@ function stickerlist($keyword) {
             $result = $listnya[$jaws];
     return $result;
 }
-function fansign($keyword) {
-    $listnya = array(
-	    "https://farzain.xyz//api//premium//fansign//cos/cos%20(1).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-            "https://farzain.xyz//api//premium//fansign//cos/cos%20(2).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-	    "https://farzain.xyz//api//premium//fansign//cos/cos%20(3).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-	    "https://farzain.xyz//api//premium//fansign//cos/cos%20(4).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-	    "https://farzain.xyz//api//premium//fansign//cos/cos%20(5).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-	    "https://farzain.xyz//api//premium//fansign//cos/cos%20(6).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-	    "https://farzain.xyz//api//premium//fansign//cos/cos%20(7).php?text=" . $keyword . "&apikey=ag73837ung43838383jdhdhd",
-	    );
-            $jaws = array_rand($listnya);
-            $result = $listnya[$jaws];
-    return $result;
-}
-function saveitoffline($keyword) {
-    $uri = "https://www.saveitoffline.com/process/?url=" . $keyword . '&type=json';
+
+function jadwaltv() {
+    $uri = "https://ari-api.herokuapp.com/jadwaltv";
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-	$result = "====[SaveOffline]====\n";
-	$result .= "Judul : \n";
-	$result .= $json['title'];
-	$result .= "\n\nUkuran : \n";
-	$result .= $json['urls'][0]['label'];
-	$result .= "\n\nURL Download : \n";
-	$result .= $json['urls'][0]['id'];
-	$result .= "\n\nUkuran : \n";
-	$result .= $json['urls'][1]['label'];
-	$result .= "\n\nURL Download : \n";
-	$result .= $json['urls'][1]['id'];
-	$result .= "\n\nUkuran : \n";
-	$result .= $json['urls'][2]['label'];	
-	$result .= "\n\nURL Download : \n";
-	$result .= $json['urls'][2]['id'];
-	$result .= "\n\nUkuran : \n";
-	$result .= $json['urls'][3]['label'];	
-	$result .= "\n\nURL Download : \n";
-	$result .= $json['urls'][3]['id'];	
-	$result .= "\n\nPencarian : Google\n";
-    return $result;
-}
-function jadwaltv($keyword) {
-    $uri = "https://farzain.xyz/api/premium/acaratv.php?apikey=ag73837ung43838383jdhdhd&id=" . $keyword;
-    $response = Unirest\Request::get("$uri");
-    $json = json_decode($response->raw_body, true);
-    $result = "「TV Schedule」";
-	  $result .= $json['url'];
+    $result = "「TV Schedule」\n\n";
+    $result .= "Time:";
+    $result .= $json['result'][0]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][0]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][0]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][1]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][1]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][1]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][2]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][2]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][2]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][3]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][3]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][3]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][4]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][4]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][4]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][5]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][5]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][5]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][6]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][6]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][6]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][7]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][7]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][7]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][8]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][8]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][8]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][9]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][9]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][9]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][10]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][10]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][10]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][11]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][11]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][11]["channelName"];
+    $result .= "\n\nTime:";
+    $result .= $json['result'][12]["jam"];
+    $result .= "\n[TITLE]\n";
+    $result .= $json['result'][12]["acara"];
+    $result .= "\n[CHANNEL]\n";
+    $result .= $json['result'][12]["channelName"];
     return $result;
 }
 function shalat($keyword) {
@@ -357,15 +336,6 @@ function cuaca($keyword) {
 	  $result .= $json['weather']['0']['description'];
     return $result;
 }
-function say($keyword) { 
-    $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=" . $keyword . "&tanggal=10-05-2003"; 
- 
-    $response = Unirest\Request::get("$uri"); 
- 
-    $json = json_decode($response->raw_body, true); 
- $result .= $json['data']['nama']; 
-    return $result; 
-}
 function waktu($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
     $response = Unirest\Request::get("$uri");
@@ -379,70 +349,7 @@ function waktu($keyword) {
 	$result .= $json['debug']['sunrise'];
 	$result .= "\nSunset : ";
 	$result .= $json['debug']['sunset'];
-	$result .= "\n\nPencarian : Google";
 	$result .= "\n====[Time]====";
-    return $result;
-}
-function manga($keyword) {
-    $fullurl = 'https://myanimelist.net/api/manga/search.xml?q=' . $keyword;
-    $username = 'jamal3213';
-    $password = 'FZQYeZ6CE9is';
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_VERBOSE, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_URL, $fullurl);
-    $returned = curl_exec($ch);
-    $xml = new SimpleXMLElement($returned);
-    $parsed = array();
-    $parsed['id'] = (string) $xml->entry[0]->id;
-    $parsed['image'] = (string) $xml->entry[0]->image;
-    $parsed['title'] = (string) $xml->entry[0]->title;
-    $parsed['desc'] = "Episode : ";
-    $parsed['desc'] .= $xml->entry[0]->episodes;
-    $parsed['desc'] .= "\nNilai : ";
-    $parsed['desc'] .= $xml->entry[0]->score;
-    $parsed['desc'] .= "\nTipe : ";
-    $parsed['desc'] .= $xml->entry[0]->type;
-    $parsed['synopsis'] = str_replace("<br />", "\n", html_entity_decode((string) $xml->entry[0]->synopsis, ENT_QUOTES | ENT_XHTML, 'UTF-8'));
-    return $parsed;
-}
-function manga_syn($keyword) {
-    $parsed = manga($keyword);
-    $result = "Judul : " . $parsed['title'];
-    $result .= "\n\nSynopsis :\n" . $parsed['synopsis'];
-    return $result;
-}
-function anime($keyword) {
-    $fullurl = 'https://myanimelist.net/api/anime/search.xml?q=' . $keyword;
-    $username = 'jamal3213';
-    $password = 'FZQYeZ6CE9is';
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_VERBOSE, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_URL, $fullurl);
-    $returned = curl_exec($ch);
-    $xml = new SimpleXMLElement($returned);
-    $parsed = array();
-    $parsed['id'] = (string) $xml->entry[0]->id;
-    $parsed['image'] = (string) $xml->entry[0]->image;
-    $parsed['title'] = (string) $xml->entry[0]->title;
-    $parsed['desc'] = "Episode : ";
-    $parsed['desc'] .= $xml->entry[0]->episodes;
-    $parsed['desc'] .= "\nNilai : ";
-    $parsed['desc'] .= $xml->entry[0]->score;
-    $parsed['desc'] .= "\nTipe : ";
-    $parsed['desc'] .= $xml->entry[0]->type;
-    $parsed['synopsis'] = str_replace("<br />", "\n", html_entity_decode((string) $xml->entry[0]->synopsis, ENT_QUOTES | ENT_XHTML, 'UTF-8'));
-    return $parsed;
-}
-function anime_syn($keyword) {
-    $parsed = anime($keyword);
-    $result = "Judul : " . $parsed['title'];
-    $result .= "\n\nSynopsis :\n" . $parsed['synopsis'];
     return $result;
 }
 function qibla($keyword) { 
@@ -499,7 +406,7 @@ function jawabs(){
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 if ($type == 'join') {
-    $text = "thanks!! type /menu\n\n";
+    $text = "%menu\n%say <query>\n%apakah <query>";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -511,7 +418,7 @@ if ($type == 'join') {
     );
 }
 //show menu, saat join dan command /menu
-if ($command == '/menu') {
+if ($command == '%menu') {
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -528,7 +435,7 @@ if ($command == '/menu') {
         'thumbnailImageUrl' => 'https://4.bp.blogspot.com/-L3sjf-JDwVQ/WUEKWMUiDqI/AAAAAAAAoYs/OzuQmmiSm-gdHZrpntvtM31asc3UAVp6wCLcBGAs/s1600/instagram-icon.jpg',
         'imageBackgroundColor' => '#00FFFF',
         'title' => 'INSTAGRAM',
-        'text' => 'Temukan Vidio Kesukaanmu',
+        'text' => 'looking for instagram account information based on keywords',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -547,54 +454,10 @@ if ($command == '/menu') {
       ),
        1 =>
       array (
-        'thumbnailImageUrl' => 'https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png',
+        'thumbnailImageUrl' => 'https://s2.bukalapak.com/img/2245927012/w-1000/Arah_Kiblat.jpg',
         'imageBackgroundColor' => '#00FFFF',
-        'title' => 'TWITTER',
-        'text' => 'Mencari Informasi Akun Twitter',
-        'defaultAction' =>
-        array (
-          'type' => 'uri',
-          'label' => 'View detail',
-          'uri' => 'http://example.com/page/123',
-        ),
-        'actions' =>
-        array (
-          0 =>
-          array (
-            'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /twitter <username>',
-          ),
-        ),
-      ),
-      2 =>
-      array (
-        'thumbnailImageUrl' => 'https://mirror.umd.edu/xbmc/addons/gotham/plugin.audio.soundcloud/icon.png',
-        'imageBackgroundColor' => '#00FFFF',
-        'title' => 'SOUND CLOUD',
-        'text' => 'Mencari Dan Unduh Musik Di SoundCloud',
-        'defaultAction' =>
-        array (
-          'type' => 'uri',
-          'label' => 'View detail',
-          'uri' => 'http://example.com/page/123',
-        ),
-        'actions' =>
-        array (
-          0 =>
-          array (
-            'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'type %soundcloud <query>',
-          ),
-        ),
-      ),
-      3 =>
-      array (
-        'thumbnailImageUrl' => 'https://is3-ssl.mzstatic.com/image/thumb/Purple125/v4/52/7c/7b/527c7b92-772c-c9f3-8202-a90d7bddc802/source/512x512bb.jpg',
-        'imageBackgroundColor' => '#00FFFF',
-        'title' => 'SMULE',
-        'text' => 'Finding Smule Account Information Based on Keyword',
+        'title' => 'QIBLAT',
+        'text' => 'find the location of Qibla direction',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -607,15 +470,59 @@ if ($command == '/menu') {
           array (
             'type' => 'message',
             'label' => 'EXAMPLE',
-            'text' => 'type %smule <url>',
+            'text' => 'Ketik %qiblat <query>',
+          ),
+        ),
+      ),
+      2 =>
+      array (
+        'thumbnailImageUrl' => 'https://mirror.umd.edu/xbmc/addons/gotham/plugin.audio.soundcloud/icon.png',
+        'imageBackgroundColor' => '#00FFFF',
+        'title' => 'IMAGE NEON',
+        'text' => 'image editor',
+        'defaultAction' =>
+        array (
+          'type' => 'uri',
+          'label' => 'View detail',
+          'uri' => 'http://example.com/page/123',
+        ),
+        'actions' =>
+        array (
+          0 =>
+          array (
+            'type' => 'message',
+            'label' => 'EXAMPLE',
+            'text' => 'type %imageneon <query>',
+          ),
+        ),
+      ),
+      3 =>
+      array (
+        'thumbnailImageUrl' => 'https://d500.epimg.net/cincodias/imagenes/2015/05/25/lifestyle/1432541958_414675_1432542807_noticia_normal.jpg',
+        'imageBackgroundColor' => '#00FFFF',
+        'title' => 'GOOGLE IMAGE',
+        'text' => 'search for all images in google based on keywords',
+        'defaultAction' =>
+        array (
+          'type' => 'uri',
+          'label' => 'View detail',
+          'uri' => 'http://example.com/page/123',
+        ),
+        'actions' =>
+        array (
+          0 =>
+          array (
+            'type' => 'message',
+            'label' => 'EXAMPLE',
+            'text' => 'type %image <query>',
           ),
         ),
       ),
       4 =>
       array (
-        'thumbnailImageUrl' => 'https://unnecessaryexclamationmark.files.wordpress.com/2016/05/myanimelist-logo.jpg',
+        'thumbnailImageUrl' => 'https://cdn.icon-icons.com/icons2/1238/PNG/512/smallwallclock_83790.png',
         'imageBackgroundColor' => '#00FFFF',
-        'title' => 'ANIME SEARCH',
+        'title' => 'TIME',
         'text' => 'Finding Anime Information Based on keywords',
         'defaultAction' =>
         array (
@@ -628,8 +535,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'type %anime <query>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %time <query>',
           ),
         ),
       ),
@@ -657,10 +564,10 @@ if ($command == '/menu') {
       ),
       6 =>
       array (
-        'thumbnailImageUrl' => 'https://i.pinimg.com/originals/d7/d8/a5/d7d8a5c1017dff37a359c95e88e0897b.jpg',
+        'thumbnailImageUrl' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/YouTube_social_white_square_%282017%29.svg/2000px-YouTube_social_white_square_%282017%29.svg.png',
         'imageBackgroundColor' => '#00FFFF',
-        'title' => 'FANSIGN ANIME',
-        'text' => 'Membuat FS Anime Berdasarkan Keyword',
+        'title' => 'YOUTUBE',
+        'text' => 'search for videos on youtube based on keywords',
         'defaultAction' =>
         array (
           'type' => 'uri',
@@ -672,8 +579,8 @@ if ($command == '/menu') {
           0 =>
           array (
             'type' => 'message',
-            'label' => 'Show me',
-            'text' => 'Ketik /fansign <text nya>',
+            'label' => 'EXAMPLE',
+            'text' => 'type %youtube <query>',
           ),
         ),
       ),
@@ -770,30 +677,26 @@ if($message['type']=='text') {
     }
 }
 //fitur sound cloud
-if($message['type']=='text') {
-	    if ($command == '/soundcloud' || $command == '/Soundcloud') {
-        $result = cloud($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-		    array(
-                  'type' => 'image',
-                  'originalContentUrl' => $result['icon'],
-                  'previewImageUrl' => $result['icon']
-                ),
-                array(
-                    'type' => 'text',
-                    'text' => 'ID: '.$result['id'].'
-TITLE: '. $result['judul'].'
-URL: '. $result['link']
-                ),
-		    array(
-                  'type' => 'audio',
-                  'originalContentUrl' => $result['audio'],
-                  'duration' => 60000
-                )
-            )
-        );
+//if($message['type']=='text') {
+	//    if ($command == '/soundcloud' || $command == '/Soundcloud') {
+      //  $result = cloud($options);
+    //    $balas = array(
+  //          'replyToken' => $replyToken,
+//            'messages' => array(
+		//    array(
+              //    'type' => 'audio',
+            //      'originalContentUrl' => $result['audio'],
+          //        'duration' => 60000
+        //        )
+      //      )
+    //    );
+  //  }
+//}
+elseif($message['type']== 'text'){
+    $pesan_datang = strtolower($message['text']);
+    $filter = explode(' ', $pesan_datang);
+    if($filter[0] == 'apakah') {
+        $balas = send(jawabs(), $replyToken);
     }
 }
 // fitur instagram
@@ -831,78 +734,7 @@ elseif($message['type']=='text') {
         );
     }
 }
-elseif($message['type']=='text') {
-	    if ($command == '%anime') {
-        $result = anime($options);
-        $altText = "Title : " . $result['title'];
-        $altText .= "\n\n" . $result['desc'];
-        $altText .= "\nMAL Page : https://myanimelist.net/anime/" . $result['id'];
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'template',
-                    'altText' => $altText,
-                    'template' => array(
-                        'type' => 'buttons',
-                        'title' => $result['title'],
-                        'thumbnailImageUrl' => $result['image'],
-                        'text' => $result['desc'],
-                        'actions' => array(
-                            array(
-                                'type' => 'postback',
-                                'label' => 'Baca Sinopsis-nya',
-                                'data' => 'action=add&itemid=123',
-                                'text' => '/anime-syn ' . $options
-                            ),
-                            array(
-                                'type' => 'uri',
-                                'label' => 'Website MAL',
-                                'uri' => 'https://myanimelist.net/anime/' . $result['id']
-                            )
-                        )
-                    )
-                )
-            )
-        );
-    }
-}
-elseif($message['type']=='text') {
-	    if ($command == '/manga') {
-        $result = manga($options);
-        $altText = "Title : " . $result['title'];
-        $altText .= "\n\n" . $result['desc'];
-        $altText .= "\nMAL Page : https://myanimelist.net/manga/" . $result['id'];
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'template',
-                    'altText' => $altText,
-                    'template' => array(
-                        'type' => 'buttons',
-                        'title' => $result['title'],
-                        'thumbnailImageUrl' => $result['image'],
-                        'text' => $result['desc'],
-                        'actions' => array(
-                            array(
-                                'type' => 'postback',
-                                'label' => 'Baca Sinopsis-nya',
-                                'data' => 'action=add&itemid=123',
-                                'text' => '/manga-syn' . $options
-                            ),
-                            array(
-                                'type' => 'uri',
-                                'label' => 'Website MAL',
-                                'uri' => 'https://myanimelist.net/manga/' . $result['id']
-                            )
-                        )
-                    )
-                )
-            )
-        );
-    }
-}
+//fitur waktu
 elseif($message['type']=='text') {
 	    if ($command == '%time') {
         $result = waktu($options);
@@ -948,23 +780,10 @@ elseif($message['type']=='text') {
         );
     }
 }
+
 elseif($message['type']=='text') {
-	    if ($command == '/joox') {
-        $result = musiknya($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-}
-elseif($message['type']=='text') {
-	    if ($command == '/gambar') {
-        $result = gambarnya($options);
+	    if ($command == '%image') {
+        $result = google_image($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
@@ -978,23 +797,24 @@ elseif($message['type']=='text') {
     }
 }
 elseif($message['type']=='text') {
-	    if ($command == '/fansign') {
-        $result = fansign($options);
+	    if ($command == '%imageneon') {
+        $result = image_neon($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
                 array(
-                    'type' => 'image',
-                    'originalContentUrl' => $result,
-                    'previewImageUrl' => $result
+                  'type' => 'image',
+                  'originalContentUrl' => $uri,
+                  'previewImageUrl' => $uri
                 )
             )
         );
     }
 }
+
 elseif($message['type']=='text') {
-	    if ($command == '/jadwaltv') {
-        $result = jadwaltv($options);
+	    if ($command == '%jadwaltv') {
+        $result = jadwaltv();
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
@@ -1006,8 +826,9 @@ elseif($message['type']=='text') {
         );
     }
 }
+//fitur pray
 elseif($message['type']=='text') {
-	    if ($command == '/shalat') {
+	    if ($command == '%shalat') {
         $result = shalat($options);
         $balas = array(
             'replyToken' => $replyToken,
@@ -1020,8 +841,9 @@ elseif($message['type']=='text') {
         );
     }
 }
+//fitur cuaca
 elseif($message['type']=='text') {
-	    if ($command == '/cuaca') {
+	    if ($command == '%weather') {
         $result = cuaca($options);
         $balas = array(
             'replyToken' => $replyToken,
