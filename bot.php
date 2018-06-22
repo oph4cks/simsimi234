@@ -849,22 +849,7 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text'){
-            if ($command == 'sally' || 'Sally') {
-     $pesan_auto = explode(" ", $message['text']);
-     $opps = $pesan_datang[1];
-     $result = simi($opps);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-}
+
 //fitur cuaca
 if($message['type']=='text') {
 	    if ($command == '%weather') {
@@ -895,7 +880,20 @@ elseif($message['type']=='sticker'){
 						);
 						
 }
-
+else
+     $pesan_auto = explode("Sally ", $message['text']);
+     $opps = $pesan_auto[1];
+     $result = simi($opps);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
 if (isset($balas)) {
     $result = json_encode($balas);
 //$result = ob_get_clean();
