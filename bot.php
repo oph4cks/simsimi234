@@ -484,7 +484,7 @@ if ($command == '%menu') {
       ),
       2 =>
       array (
-        'thumbnailImageUrl' => 'https://mirror.umd.edu/xbmc/addons/gotham/plugin.audio.soundcloud/icon.png',
+        'thumbnailImageUrl' => 'https://s3.amazonaws.com/urgeio-versus/photo-editor-by-aviary/front/front-1391686692704.variety.jpg',
         'imageBackgroundColor' => '#00FFFF',
         'title' => 'IMAGE NEON',
         'text' => 'image editor',
@@ -864,22 +864,6 @@ if($message['type']=='text') {
             )
         );
     }
-}
-else{
-if($message['type']=='text') {
-	    if ($command == 'Sally') {
-        $result = simi($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-}
 }
 elseif($message['type']=='sticker'){	
 	$result = stickerlist($options);
