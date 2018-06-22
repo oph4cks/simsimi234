@@ -870,7 +870,8 @@ elseif($message['type']=='sticker'){
 						);
 						
 }
-else($message['type']=='text'){
+else{
+($message['type']=='text')
      $result = simi($query_simi);
         $balas = array(
             'replyToken' => $replyToken,
