@@ -48,7 +48,7 @@ function insta($keyword) {
     $uri = "https://ari-api.herokuapp.com/instagram?username=" . $keyword;
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-    $potonya = $json['result']['profile_pic_url'];
+    $result['poto'] = $json['result']['profile_pic_url'];
     $result = "「PROFILE INSTAGRAM」\n\n";
     $result .= "DisplayName: ";
     $result .= $json['result']['full_name'];
@@ -716,8 +716,8 @@ if($message['type']=='text') {
             'messages' => array(
 		array(
                   'type' => 'image',
-                  'originalContentUrl' => $potonya,
-                  'previewImageUrl' => $potonya
+                  'originalContentUrl' => $result['poto'],
+                  'previewImageUrl' => $result['poto']
                 ),
                 array(
                     'type' => 'text',
@@ -879,8 +879,7 @@ elseif($message['type']=='sticker'){
 						);
 						
 }
-else{
-($message['type']=='text');
+if($message['type']=='text');
      $result = simi($siminya);
         $balas = array(
             'replyToken' => $replyToken,
