@@ -850,8 +850,10 @@ if($message['type']=='text') {
     }
 }
 if($message['type']=='text'){
-  if ($command == 'sally' || 'Sally') {
-     $result = simi($options);
+            if ($command == 'sally' || 'Sally') {
+     $pesan_auto = explode(" ", $message['text']);
+     $opps = $pesan_datang[1];
+     $result = simi($opps);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
