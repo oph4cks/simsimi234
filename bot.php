@@ -849,6 +849,20 @@ if($message['type']=='text') {
         );
     }
 }
+if($message['type']=='text'){
+  if ($command == 'sally' || 'Sally') {
+     $result = simi($siminya);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
 //fitur cuaca
 if($message['type']=='text') {
 	    if ($command == '%weather') {
@@ -879,20 +893,7 @@ elseif($message['type']=='sticker'){
 						);
 						
 }
-if($message['type']=='text'){
-  if ($command == 'sally' || 'Sally') {
-     $result = simi($siminya);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-}
+
 if (isset($balas)) {
     $result = json_encode($balas);
 //$result = ob_get_clean();
