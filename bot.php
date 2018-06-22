@@ -865,6 +865,20 @@ if($message['type']=='text') {
         );
     }
 }
+else($message['type']=='text') {
+	    if ($command == 'Sally') {
+        $result = simi($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
 elseif($message['type']=='sticker'){	
 	$result = stickerlist($options);
 	$balas = array(
@@ -880,19 +894,7 @@ elseif($message['type']=='sticker'){
 						);
 						
 }
-else
-     $pesan_auto = explode("Sally ", $message['text']);
-     $opps = $pesan_auto[1];
-     $result = simi($opps);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
+
 if (isset($balas)) {
     $result = json_encode($balas);
 //$result = ob_get_clean();
