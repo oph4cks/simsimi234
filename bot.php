@@ -32,8 +32,7 @@ function simi($keyword) {
     $uri = "https://corrykalam.gq/simi.php?text=" . $keyword;
     $response = Unirest\Request::get("$uri");
     $json = json_decode($response->raw_body, true);
-    if $json["answer"] != "Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku";
-       $result = $json["answer"];
+    $result = $json["answer"];
     return $result;
 }
 function insta($keyword) {
