@@ -58,13 +58,13 @@ function insta($keyword) {
     $result = "「PROFILE INSTAGRAM」\n\n";
     $result .= "DisplayName: ";
     $result .= $json['result']['full_name'];
-    $result .= "UserName: ";
+    $result .= "\nUserName: ";
     $result .= $json['result']['username'];
-    $result .= "Private: ";
+    $result .= "\nPrivate: ";
     $result .= $json['result']['is_private'];
-    $result .= "Follower: ";
+    $result .= "\nFollower: ";
     $result .= $json['result']['byline'];
-    $result .= 'https://www.instagram.com/'. $keyword;
+    $result .= '\n\nhttps://www.instagram.com/'. $keyword;
     return $result;
 }
 
